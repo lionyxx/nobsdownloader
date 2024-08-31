@@ -16,8 +16,8 @@ To install `nobsdownloader`, run the following command:
 ```sh
 pip install git+https://github.com/lionyxx/nobsdownloader.git
 ```
-Usage
-Once installed, you can use nobsdownloader to download videos or playlists by simply typing the following commands:
+# Usage
+## Once installed, you can use nobsdownloader to download videos or playlists by simply typing the following commands:
 
 Download a Single Video
 ```sh
