@@ -46,7 +46,6 @@ def main():
     url = sys.argv[1]
     is_playlist = '--playlist' in sys.argv
 
-    # Get the user's Videos folder
     videos_path = Path.home() / "Videos" / "nobsdownloader"
     if not videos_path.exists():
         os.makedirs(videos_path)
