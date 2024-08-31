@@ -4,9 +4,20 @@ import os
 from pathlib import Path
 
 def install_dependencies():
-    """Install the required dependencies."""
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "yt-dlp"])
+    """Install the required dependencies without displaying 'Requirement already satisfied' messages."""
+    subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    
+    process = subprocess.Popen([sys.executable, "-m", "pip", "install", "yt-dlp"],
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    
+    stdout, stderr = process.communicate()
+    
+    for line in stdout.splitlines():
+        if "Requirement already satisfied" not in line:
+            print(line)
+    
+    if process.returncode != 0:
+        print(stderr)
 
 def add_to_path():
     """Add the script directory to the user's PATH on Windows."""
