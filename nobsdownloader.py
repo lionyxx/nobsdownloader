@@ -5,8 +5,9 @@ from pathlib import Path
 
 def install_dependencies():
     """Install the required dependencies."""
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "yt-dlp"])
+    with open(os.devnull, 'w') as devnull:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], stdout=devnull, stderr=devnull)
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "yt-dlp"], stdout=devnull, stderr=devnull)
 
 def download_video(url, output_path):
     """Download a single YouTube video."""
