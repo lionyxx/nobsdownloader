@@ -28,6 +28,8 @@ Download an Entire Playlist
 nobsdownloader <YouTube_Playlist_URL> --playlist
 ```
 
-How It Works
-Download Location: By default, all videos are saved to C:\Users\<YourUsername>\Videos\nobsdownloader on Windows.
-Format: Downloads are saved in the best available format, with 1080p video quality if available.
+# How It Works
+## Download Location: 
+### By default, all videos are saved to C:\Users\<YourUsername>\Videos\nobsdownloader on Windows.
+## Format: 
+### Downloads are saved in the best available format, with 1080p video quality if available.
