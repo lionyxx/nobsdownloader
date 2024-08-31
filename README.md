@@ -13,6 +13,6 @@
 
 To install `nobsdownloader`, run the following command:
 
-'''
+```sh
 pip install git+https://github.com/lionyxx/nobsdownloader.git
-'''
+```
