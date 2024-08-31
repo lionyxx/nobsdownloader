@@ -5,9 +5,22 @@ from pathlib import Path
 
 def install_dependencies():
     """Install the required dependencies."""
-    with open(os.devnull, 'w') as devnull:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], stdout=devnull, stderr=devnull)
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "yt-dlp"], stdout=devnull, stderr=devnull)
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
+    process = subprocess.Popen(
+        [sys.executable, "-m", "pip", "install", "yt-dlp"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+
+    stdout, stderr = process.communicate()
+
+    # Filter out "Requirement already satisfied" messages
+    filtered_stdout = '\n'.join([line for line in stdout.decode().split('\n') if 'Requirement already satisfied' not in line])
+
+    if filtered_stdout:
+        print(filtered_stdout)
+    if stderr:
+        print(stderr.decode(), file=sys.stderr)
 
 def download_video(url, output_path):
     """Download a single YouTube video."""
