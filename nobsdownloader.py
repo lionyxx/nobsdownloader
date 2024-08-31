@@ -5,27 +5,25 @@ from pathlib import Path
 
 def install_dependencies():
     """Install the required dependencies."""
-    commands = [
-        [sys.executable, "-m", "pip", "install", "--upgrade", "pip"],
-        [sys.executable, "-m", "pip", "install", "yt-dlp"]
-    ]
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "yt-dlp"])
+
+def add_to_path():
+    """Add the script directory to the user's PATH on Windows."""
+    script_dir = Path.home() / "AppData" / "Local" / "Packages" / "PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0" / "LocalCache" / "local-packages" / "Python312" / "Scripts"
     
-    for command in commands:
-        process = subprocess.Popen(
-            command,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
-        )
-
-        stdout, stderr = process.communicate()
-
-        # Filter out "Requirement already satisfied" messages
-        filtered_stdout = '\n'.join([line for line in stdout.decode().split('\n') if 'Requirement already satisfied' not in line])
-
-        if filtered_stdout:
-            print(filtered_stdout)
-        if stderr:
-            print(stderr.decode(), file=sys.stderr)
+    if script_dir.exists():
+        path_var = os.environ.get('PATH', '')
+        if str(script_dir) not in path_var:
+            try:
+                subprocess.run(f'setx PATH "%PATH%;{script_dir}"', shell=True, check=True)
+                print(f"Added {script_dir} to PATH.")
+            except subprocess.CalledProcessError as e:
+                print(f"Failed to add to PATH: {e}")
+        else:
+            print(f"{script_dir} is already in PATH.")
+    else:
+        print(f"Script directory {script_dir} does not exist.")
 
 def download_video(url, output_path):
     """Download a single YouTube video."""
@@ -57,6 +55,7 @@ def download_playlist(playlist_url, output_path):
 
 def main():
     install_dependencies()
+    add_to_path()
 
     if len(sys.argv) < 2:
         print("Usage: nobsdownloader <url> [--playlist]")
