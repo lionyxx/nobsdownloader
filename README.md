@@ -16,3 +16,18 @@ To install `nobsdownloader`, run the following command:
 ```sh
 pip install git+https://github.com/lionyxx/nobsdownloader.git
 ```
+Usage
+Once installed, you can use nobsdownloader to download videos or playlists by simply typing the following commands:
+
+Download a Single Video
+```sh
+nobsdownloader <YouTube_Video_URL>
+```
+Download an Entire Playlist
+```sh
+nobsdownloader <YouTube_Playlist_URL> --playlist
+```
+
+How It Works
+Download Location: By default, all videos are saved to C:\Users\<YourUsername>\Videos\nobsdownloader on Windows.
+Format: Downloads are saved in the best available format, with 1080p video quality if available.
