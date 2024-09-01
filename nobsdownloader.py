@@ -74,7 +74,6 @@ def main():
 
     is_playlist = '--playlist' in sys.argv
     if sys.argv[2] == "--playlist":
-        is_playlist = True
         url = sys.argv[1]
     else:
         url = sys.argv[2]
