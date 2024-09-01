@@ -73,10 +73,14 @@ def main():
         sys.exit(1)
 
     is_playlist = '--playlist' in sys.argv
-    if sys.argv[2] == "--playlist":
-        url = sys.argv[1]
-    else:
-        url = sys.argv[2]
+    try:
+        if sys.argv[1] == "--playlist" and is_playlist:
+            url = sys.argv[2]
+        else:
+            url = sys.argv[1]
+    except IndexError:
+        print("Please try again with a URL")
+        sys.exit(1)
 
     videos_path = Path.home() / "Videos" / "nobsdownloader"
     if not videos_path.exists():
