@@ -72,8 +72,12 @@ def main():
         print("Usage: nobsdownloader <url> [--playlist]")
         sys.exit(1)
 
-    url = sys.argv[1]
     is_playlist = '--playlist' in sys.argv
+    if sys.argv[2] == "--playlist":
+        is_playlist = True
+        url = sys.argv[1]
+    else:
+        url = sys.argv[2]
 
     videos_path = Path.home() / "Videos" / "nobsdownloader"
     if not videos_path.exists():
