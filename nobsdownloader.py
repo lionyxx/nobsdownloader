@@ -72,8 +72,17 @@ def main():
         print("Usage: nobsdownloader <url> [--playlist]")
         sys.exit(1)
 
-    url = sys.argv[1]
     is_playlist = '--playlist' in sys.argv
+    #Instead of statically assigning the URL we can use this to dynamically assign it (cuz only 2 args)
+    try: 
+        if sys.argv[1] == "--playlist" and is_playlist:
+            url = sys.argv[2]
+        else:
+            url = sys.argv[1]
+    #Basically if we cannot index into sys.argv[2] it means that user just put --playlist(hopefully)
+    except IndexError:
+        print("Please try again with a URL")
+        sys.exit(1)
 
     videos_path = Path.home() / "Videos" / "nobsdownloader"
     if not videos_path.exists():
